@@ -21,11 +21,10 @@ const Header = () => {
     {
       style: {
         display: "flex",
-        justifyContent: "space-between",
+        gap: 10,
+        justifyContent: "center",
         alignItems: "center",
-        marginBottom: 8,
-        width: 492,
-        boxSizing: "content-box"
+        marginBottom: 12
       },
       children: letters.map((L) => /* @__PURE__ */ jsxDEV(
         "div",
@@ -51,7 +50,7 @@ const Header = () => {
         false,
         {
           fileName: "<stdin>",
-          lineNumber: 41,
+          lineNumber: 38,
           columnNumber: 9
         }
       ))
@@ -60,7 +59,7 @@ const Header = () => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 30,
+      lineNumber: 28,
       columnNumber: 5
     }
   );
@@ -105,7 +104,7 @@ const Cell = ({ value, highlighted, circleProgress }) => {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 91,
+            lineNumber: 88,
             columnNumber: 9
           }
         ),
@@ -125,13 +124,13 @@ const Cell = ({ value, highlighted, circleProgress }) => {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 107,
+            lineNumber: 104,
             columnNumber: 9
           }
         ),
         /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1 }, children: isFree ? "FREE" : value }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 118,
+          lineNumber: 115,
           columnNumber: 7
         })
       ]
@@ -140,19 +139,21 @@ const Cell = ({ value, highlighted, circleProgress }) => {
     true,
     {
       fileName: "<stdin>",
-      lineNumber: 72,
+      lineNumber: 69,
       columnNumber: 5
     }
   );
 };
 const BingoCardClip = ({ match = {} }) => {
   const frame = useCurrentFrame();
-  const card = match.card && match.card.length === 5 ? match.card : defaultCard();
+  const card = match.card && (match.card.length === 6 || match.card.length === 5) ? match.card : defaultCard();
   const highlights = match.highlights || [];
   const replayActions = Array.isArray(match.replayActions) ? match.replayActions : [];
   const cellProgress = {};
+  const needsRowShift = card.length === 5;
   replayActions.forEach((a) => {
-    const key = `${a.r}-${a.c}`;
+    const r = needsRowShift ? a.r + 1 : a.r;
+    const key = `${r}-${a.c}`;
     const start = a.frame;
     const end = a.frame + 14;
     const p = interpolate(frame, [start, end], [0, 1], {
@@ -169,6 +170,8 @@ const BingoCardClip = ({ match = {} }) => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp"
   });
+  const lettersRow = ["B", "I", "N", "G", "O"];
+  const gridRows = card.length === 5 ? [lettersRow, ...card] : card;
   return /* @__PURE__ */ jsxDEV(AbsoluteFill, { style: { background: COLORS.bg, justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ jsxDEV(
     "div",
     {
@@ -182,12 +185,7 @@ const BingoCardClip = ({ match = {} }) => {
         opacity
       },
       children: /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", flexDirection: "column", alignItems: "center" }, children: [
-        /* @__PURE__ */ jsxDEV(Header, {}, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 173,
-          columnNumber: 11
-        }),
-        /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8 }, children: card.map(
+        /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8 }, children: gridRows.map(
           (row, rIdx) => row.map((cell, cIdx) => {
             const highlighted = Array.isArray(highlights) && highlights[rIdx] && highlights[rIdx][cIdx];
             const progress = cellProgress[`${rIdx}-${cIdx}`] ?? 0;
@@ -202,24 +200,24 @@ const BingoCardClip = ({ match = {} }) => {
               false,
               {
                 fileName: "<stdin>",
-                lineNumber: 185,
+                lineNumber: 190,
                 columnNumber: 19
               }
             );
           })
         ) }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 174,
+          lineNumber: 179,
           columnNumber: 11
         }),
         /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 18, color: "#666", fontSize: 14 }, children: "Bingo card" }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 197,
+          lineNumber: 202,
           columnNumber: 11
         })
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 172,
+        lineNumber: 177,
         columnNumber: 9
       })
     },
@@ -227,12 +225,12 @@ const BingoCardClip = ({ match = {} }) => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 161,
+      lineNumber: 166,
       columnNumber: 7
     }
   ) }, void 0, false, {
     fileName: "<stdin>",
-    lineNumber: 160,
+    lineNumber: 165,
     columnNumber: 5
   });
 };
