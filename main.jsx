@@ -17,10 +17,11 @@ function HeaderSmall() {
     {
       style: {
         display: "flex",
-        gap: 10,
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 12
+        marginBottom: 8,
+        width: 484,
+        boxSizing: "content-box"
       },
       children: letters.map((L) => /* @__PURE__ */ jsxDEV(
         "div",
@@ -46,7 +47,7 @@ function HeaderSmall() {
         false,
         {
           fileName: "<stdin>",
-          lineNumber: 28,
+          lineNumber: 31,
           columnNumber: 9
         },
         this
@@ -56,7 +57,7 @@ function HeaderSmall() {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 18,
+      lineNumber: 20,
       columnNumber: 5
     },
     this
@@ -95,12 +96,12 @@ function InteractiveApp() {
     /* @__PURE__ */ jsxDEV("div", { style: { width: 360, boxSizing: "border-box", background: "#fff", borderRadius: 12, padding: 12 }, children: [
       /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 800, marginBottom: 8, fontSize: 16 }, children: "Tap to mark" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 95,
+        lineNumber: 98,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 98,
+        lineNumber: 101,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: {
@@ -150,12 +151,12 @@ function InteractiveApp() {
                   zIndex: 0
                 } }, void 0, false, {
                   fileName: "<stdin>",
-                  lineNumber: 142,
+                  lineNumber: 145,
                   columnNumber: 25
                 }, this),
                 /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1, fontSize: 12 }, children: isFree ? "FREE" : cell }, void 0, false, {
                   fileName: "<stdin>",
-                  lineNumber: 152,
+                  lineNumber: 155,
                   columnNumber: 23
                 }, this)
               ]
@@ -164,7 +165,7 @@ function InteractiveApp() {
             true,
             {
               fileName: "<stdin>",
-              lineNumber: 120,
+              lineNumber: 123,
               columnNumber: 21
             },
             this
@@ -172,15 +173,15 @@ function InteractiveApp() {
         })
       ) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 114,
+        lineNumber: 117,
         columnNumber: 13
       }, this) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 113,
+        lineNumber: 116,
         columnNumber: 11
       }, this) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 101,
+        lineNumber: 104,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, display: "flex", gap: 8 }, children: [
@@ -198,7 +199,7 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 164,
+            lineNumber: 167,
             columnNumber: 11
           },
           this
@@ -214,35 +215,35 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 170,
+            lineNumber: 173,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 163,
+        lineNumber: 166,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, fontSize: 12 }, children: [
         /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700 }, children: "Recorded actions JSON" }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 179,
+          lineNumber: 182,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6, maxHeight: 120, overflow: "auto" }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 180,
+          lineNumber: 183,
           columnNumber: 11
         }, this)
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 178,
+        lineNumber: 181,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 94,
+      lineNumber: 97,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ jsxDEV("div", { style: { width: 360, height: 640, display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 12, overflow: "hidden", boxShadow: "0 12px 36px rgba(0,0,0,0.12)" }, children: /* @__PURE__ */ jsxDEV(
@@ -263,27 +264,27 @@ function InteractiveApp() {
       false,
       {
         fileName: "<stdin>",
-        lineNumber: 189,
+        lineNumber: 192,
         columnNumber: 11
       },
       this
     ) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 188,
+      lineNumber: 191,
       columnNumber: 9
     }, this) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 187,
+      lineNumber: 190,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
     fileName: "<stdin>",
-    lineNumber: 92,
+    lineNumber: 95,
     columnNumber: 5
   }, this);
 }
 createRoot(document.getElementById("app")).render(/* @__PURE__ */ jsxDEV(InteractiveApp, {}, void 0, false, {
   fileName: "<stdin>",
-  lineNumber: 208,
+  lineNumber: 211,
   columnNumber: 51
 }));
