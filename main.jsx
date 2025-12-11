@@ -10,6 +10,58 @@ const exampleCard = [
   ["12", "21", "39", "51", "68"],
   ["7", "24", "34", "46", "70"]
 ];
+function HeaderSmall() {
+  const letters = ["B", "I", "N", "G", "O"];
+  return /* @__PURE__ */ jsxDEV(
+    "div",
+    {
+      style: {
+        display: "flex",
+        gap: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 12
+      },
+      children: letters.map((L) => /* @__PURE__ */ jsxDEV(
+        "div",
+        {
+          style: {
+            width: 92,
+            height: 92,
+            borderRadius: 12,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#ffffff",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+            border: `3px solid #2b2b2b`,
+            fontSize: 48,
+            fontWeight: 800,
+            color: "#1b1b1b",
+            fontFamily: "Arial, Helvetica, sans-serif"
+          },
+          children: L
+        },
+        L,
+        false,
+        {
+          fileName: "<stdin>",
+          lineNumber: 28,
+          columnNumber: 9
+        },
+        this
+      ))
+    },
+    void 0,
+    false,
+    {
+      fileName: "<stdin>",
+      lineNumber: 18,
+      columnNumber: 5
+    },
+    this
+  );
+}
 function InteractiveApp() {
   const [actions, setActions] = useState([]);
   const [playerKey, setPlayerKey] = useState(0);
@@ -37,13 +89,18 @@ function InteractiveApp() {
     return { card: exampleCard, replayActions: actionsWithFrame };
   }, [isReplayMode, actions]);
   return /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", height: "100%", gap: 12 }, children: [
-    /* @__PURE__ */ jsxDEV("div", { style: { width: 360, padding: 12, boxSizing: "border-box", background: "#fff" }, children: [
-      /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700, marginBottom: 8 }, children: "Tap to mark" }, void 0, false, {
+    /* @__PURE__ */ jsxDEV("div", { style: { width: 640, padding: 20, boxSizing: "border-box", background: "#fff", borderRadius: 16 }, children: [
+      /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 800, marginBottom: 8, fontSize: 18 }, children: "Tap to mark" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 52,
+        lineNumber: 90,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 56px)", gap: 8 }, children: exampleCard.map(
+      /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
+        fileName: "<stdin>",
+        lineNumber: 93,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center" }, children: exampleCard.map(
         (row, rIdx) => row.map((cell, cIdx) => {
           const isFree = typeof cell === "string" && cell.toLowerCase().includes("free");
           const tapped = actions.some((a) => a.r === rIdx && a.c === cIdx);
@@ -52,20 +109,48 @@ function InteractiveApp() {
             {
               onClick: () => handleCellTap(rIdx, cIdx),
               style: {
-                width: 56,
-                height: 56,
-                borderRadius: 8,
+                width: 92,
+                height: 92,
+                borderRadius: 12,
                 border: "2px solid #2b2b2b",
-                background: tapped ? "#ffd54f" : isFree ? "#efefef" : "#fff",
-                fontWeight: 700
+                background: isFree ? "#efefef" : "#fff",
+                fontWeight: 700,
+                fontSize: 28,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                overflow: "hidden",
+                cursor: "pointer",
+                color: "#111",
+                fontFamily: "Arial, Helvetica, sans-serif"
               },
-              children: isFree ? "FREE" : cell
+              children: [
+                tapped && /* @__PURE__ */ jsxDEV("div", { style: {
+                  position: "absolute",
+                  width: 74,
+                  height: 74,
+                  borderRadius: 999,
+                  background: "#ff6b6b",
+                  opacity: 0.95,
+                  zIndex: 0
+                } }, void 0, false, {
+                  fileName: "<stdin>",
+                  lineNumber: 126,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1 }, children: isFree ? "FREE" : cell }, void 0, false, {
+                  fileName: "<stdin>",
+                  lineNumber: 137,
+                  columnNumber: 19
+                }, this)
+              ]
             },
             `${rIdx}-${cIdx}`,
-            false,
+            true,
             {
               fileName: "<stdin>",
-              lineNumber: 60,
+              lineNumber: 103,
               columnNumber: 17
             },
             this
@@ -73,7 +158,7 @@ function InteractiveApp() {
         })
       ) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 53,
+        lineNumber: 96,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, display: "flex", gap: 8 }, children: [
@@ -91,7 +176,7 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 80,
+            lineNumber: 147,
             columnNumber: 11
           },
           this
@@ -107,35 +192,35 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 86,
+            lineNumber: 153,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 79,
+        lineNumber: 146,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, fontSize: 12 }, children: [
         /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700 }, children: "Recorded actions JSON" }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 95,
+          lineNumber: 162,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6 }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 96,
+          lineNumber: 163,
           columnNumber: 11
         }, this)
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 94,
+        lineNumber: 161,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 51,
+      lineNumber: 89,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ jsxDEV("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", height: "100%", maxWidth: 420 }, children: /* @__PURE__ */ jsxDEV(
@@ -156,27 +241,27 @@ function InteractiveApp() {
       false,
       {
         fileName: "<stdin>",
-        lineNumber: 104,
+        lineNumber: 171,
         columnNumber: 11
       },
       this
     ) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 103,
+      lineNumber: 170,
       columnNumber: 9
     }, this) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 102,
+      lineNumber: 169,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
     fileName: "<stdin>",
-    lineNumber: 50,
+    lineNumber: 88,
     columnNumber: 5
   }, this);
 }
 createRoot(document.getElementById("app")).render(/* @__PURE__ */ jsxDEV(InteractiveApp, {}, void 0, false, {
   fileName: "<stdin>",
-  lineNumber: 123,
+  lineNumber: 190,
   columnNumber: 51
 }));
