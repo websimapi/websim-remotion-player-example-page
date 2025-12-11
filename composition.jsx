@@ -3,9 +3,7 @@ import React from "react";
 import {
   AbsoluteFill,
   useCurrentFrame,
-  interpolate,
-  Sequence,
-  Series
+  interpolate
 } from "remotion";
 const COLORS = {
   bg: "#fffef8",
@@ -13,7 +11,8 @@ const COLORS = {
   headerText: "#1b1b1b",
   numberText: "#111",
   freeBg: "#efefef",
-  highlight: "#ffd54f"
+  highlight: "#ffd54f",
+  circleFill: "#ff6b6b"
 };
 const Header = () => {
   const letters = ["B", "I", "N", "G", "O"];
@@ -51,7 +50,7 @@ const Header = () => {
         false,
         {
           fileName: "<stdin>",
-          lineNumber: 39,
+          lineNumber: 38,
           columnNumber: 9
         }
       ))
@@ -60,12 +59,12 @@ const Header = () => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 29,
+      lineNumber: 28,
       columnNumber: 5
     }
   );
 };
-const Cell = ({ value, highlighted }) => {
+const Cell = ({ value, highlighted, circleProgress }) => {
   const isFree = typeof value === "string" && value.toLowerCase().includes("free");
   return /* @__PURE__ */ jsxDEV(
     "div",
@@ -82,9 +81,33 @@ const Cell = ({ value, highlighted }) => {
         fontWeight: 700,
         color: COLORS.numberText,
         fontFamily: "Arial, Helvetica, sans-serif",
-        position: "relative"
+        position: "relative",
+        overflow: "hidden"
       },
       children: [
+        typeof circleProgress === "number" && circleProgress > 0 && /* @__PURE__ */ jsxDEV(
+          "div",
+          {
+            style: {
+              position: "absolute",
+              width: 74,
+              height: 74,
+              borderRadius: 999,
+              background: COLORS.circleFill,
+              opacity: 0.95,
+              transform: `scale(${circleProgress})`,
+              transition: "none",
+              zIndex: 0
+            }
+          },
+          void 0,
+          false,
+          {
+            fileName: "<stdin>",
+            lineNumber: 88,
+            columnNumber: 9
+          }
+        ),
         highlighted && !isFree && /* @__PURE__ */ jsxDEV(
           "div",
           {
@@ -93,7 +116,7 @@ const Cell = ({ value, highlighted }) => {
               inset: 6,
               borderRadius: 8,
               background: COLORS.highlight,
-              opacity: 0.85,
+              opacity: 0.9,
               zIndex: 0
             }
           },
@@ -101,13 +124,13 @@ const Cell = ({ value, highlighted }) => {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 87,
+            lineNumber: 104,
             columnNumber: 9
           }
         ),
         /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1 }, children: isFree ? "FREE" : value }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 98,
+          lineNumber: 115,
           columnNumber: 7
         })
       ]
@@ -116,7 +139,7 @@ const Cell = ({ value, highlighted }) => {
     true,
     {
       fileName: "<stdin>",
-      lineNumber: 70,
+      lineNumber: 69,
       columnNumber: 5
     }
   );
@@ -125,6 +148,18 @@ const BingoCardClip = ({ match = {} }) => {
   const frame = useCurrentFrame();
   const card = match.card && match.card.length === 5 ? match.card : defaultCard();
   const highlights = match.highlights || [];
+  const replayActions = Array.isArray(match.replayActions) ? match.replayActions : [];
+  const cellProgress = {};
+  replayActions.forEach((a) => {
+    const key = `${a.r}-${a.c}`;
+    const start = a.frame;
+    const end = a.frame + 14;
+    const p = interpolate(frame, [start, end], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp"
+    });
+    cellProgress[key] = p;
+  });
   const scale = interpolate(frame, [0, 12, 30], [0.86, 1.03, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp"
@@ -148,31 +183,42 @@ const BingoCardClip = ({ match = {} }) => {
       children: /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", flexDirection: "column", alignItems: "center" }, children: [
         /* @__PURE__ */ jsxDEV(Header, {}, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 135,
+          lineNumber: 170,
           columnNumber: 11
         }),
         /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8 }, children: card.map(
           (row, rIdx) => row.map((cell, cIdx) => {
             const highlighted = Array.isArray(highlights) && highlights[rIdx] && highlights[rIdx][cIdx];
-            return /* @__PURE__ */ jsxDEV(Cell, { value: cell, highlighted }, `${rIdx}-${cIdx}`, false, {
-              fileName: "<stdin>",
-              lineNumber: 145,
-              columnNumber: 19
-            });
+            const progress = cellProgress[`${rIdx}-${cIdx}`] ?? 0;
+            return /* @__PURE__ */ jsxDEV(
+              Cell,
+              {
+                value: cell,
+                highlighted,
+                circleProgress: progress
+              },
+              `${rIdx}-${cIdx}`,
+              false,
+              {
+                fileName: "<stdin>",
+                lineNumber: 182,
+                columnNumber: 19
+              }
+            );
           })
         ) }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 136,
+          lineNumber: 171,
           columnNumber: 11
         }),
         /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 18, color: "#666", fontSize: 14 }, children: "Bingo card" }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 152,
+          lineNumber: 194,
           columnNumber: 11
         })
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 134,
+        lineNumber: 169,
         columnNumber: 9
       })
     },
@@ -180,12 +226,12 @@ const BingoCardClip = ({ match = {} }) => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 123,
+      lineNumber: 158,
       columnNumber: 7
     }
   ) }, void 0, false, {
     fileName: "<stdin>",
-    lineNumber: 122,
+    lineNumber: 157,
     columnNumber: 5
   });
 };

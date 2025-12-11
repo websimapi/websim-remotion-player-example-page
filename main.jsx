@@ -1,48 +1,182 @@
 import { jsxDEV } from "react/jsx-dev-runtime";
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { createRoot } from "react-dom/client";
 import { Player } from "@websim/remotion/player";
 import { BingoCardClip } from "./composition.jsx";
-const exampleMatch = {
-  // A single card layout for the clip. Use numbers or strings. Center will be ignored and shown as "FREE".
-  card: [
-    ["1", "18", "31", "48", "63"],
-    ["2", "16", "30", "52", "66"],
-    ["5", "20", "FREE", "57", "72"],
-    ["12", "21", "39", "51", "68"],
-    ["7", "24", "34", "46", "70"]
-  ],
-  // optional visual flags
-  highlights: {
-    // boolean matrix matching the card to highlight specific called numbers
-    // use same shape as card, e.g. true for called number
-  }
-};
-createRoot(document.getElementById("app")).render(
-  /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", height: "100%" }, children: /* @__PURE__ */ jsxDEV(
-    Player,
-    {
-      component: BingoCardClip,
-      durationInFrames: 150,
-      fps: 30,
-      compositionWidth: 1080,
-      compositionHeight: 1920,
-      loop: true,
-      controls: true,
-      inputProps: { match: exampleMatch },
-      autoplay: true,
-      style: { maxWidth: "100%", maxHeight: "100%" }
-    },
-    void 0,
-    false,
-    {
+const exampleCard = [
+  ["1", "18", "31", "48", "63"],
+  ["2", "16", "30", "52", "66"],
+  ["5", "20", "FREE", "57", "72"],
+  ["12", "21", "39", "51", "68"],
+  ["7", "24", "34", "46", "70"]
+];
+function InteractiveApp() {
+  const [actions, setActions] = useState([]);
+  const [playerKey, setPlayerKey] = useState(0);
+  const [isReplayMode, setIsReplayMode] = useState(false);
+  const handleCellTap = (r, c) => {
+    const t = Date.now();
+    const next = [...actions, { r, c, t }];
+    setActions(next);
+  };
+  const clearActions = () => {
+    setActions([]);
+    setIsReplayMode(false);
+    setPlayerKey((k) => k + 1);
+  };
+  const matchForPlayer = useMemo(() => {
+    if (!isReplayMode) return { card: exampleCard, highlights: [] };
+    if (actions.length === 0) return { card: exampleCard, highlights: [] };
+    const sorted = [...actions].sort((a, b) => a.t - b.t);
+    const t0 = sorted[0].t;
+    const actionsWithFrame = sorted.map((a, idx) => {
+      const msOffset = a.t - t0;
+      const frame = Math.round(msOffset / 1e3 * 30) + idx * 6;
+      return { r: a.r, c: a.c, frame };
+    });
+    return { card: exampleCard, replayActions: actionsWithFrame };
+  }, [isReplayMode, actions]);
+  return /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", height: "100%", gap: 12 }, children: [
+    /* @__PURE__ */ jsxDEV("div", { style: { width: 360, padding: 12, boxSizing: "border-box", background: "#fff" }, children: [
+      /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700, marginBottom: 8 }, children: "Tap to mark" }, void 0, false, {
+        fileName: "<stdin>",
+        lineNumber: 52,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 56px)", gap: 8 }, children: exampleCard.map(
+        (row, rIdx) => row.map((cell, cIdx) => {
+          const isFree = typeof cell === "string" && cell.toLowerCase().includes("free");
+          const tapped = actions.some((a) => a.r === rIdx && a.c === cIdx);
+          return /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              onClick: () => handleCellTap(rIdx, cIdx),
+              style: {
+                width: 56,
+                height: 56,
+                borderRadius: 8,
+                border: "2px solid #2b2b2b",
+                background: tapped ? "#ffd54f" : isFree ? "#efefef" : "#fff",
+                fontWeight: 700
+              },
+              children: isFree ? "FREE" : cell
+            },
+            `${rIdx}-${cIdx}`,
+            false,
+            {
+              fileName: "<stdin>",
+              lineNumber: 60,
+              columnNumber: 17
+            },
+            this
+          );
+        })
+      ) }, void 0, false, {
+        fileName: "<stdin>",
+        lineNumber: 53,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, display: "flex", gap: 8 }, children: [
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: () => {
+              setIsReplayMode(true);
+              setPlayerKey((k) => k + 1);
+            },
+            style: { padding: "8px 12px", borderRadius: 8, background: "#1b9fff", color: "#fff", border: "none" },
+            children: "Render Replay"
+          },
+          void 0,
+          false,
+          {
+            fileName: "<stdin>",
+            lineNumber: 80,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: clearActions,
+            style: { padding: "8px 12px", borderRadius: 8, background: "#eee", border: "none" },
+            children: "Clear"
+          },
+          void 0,
+          false,
+          {
+            fileName: "<stdin>",
+            lineNumber: 86,
+            columnNumber: 11
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "<stdin>",
+        lineNumber: 79,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, fontSize: 12 }, children: [
+        /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700 }, children: "Recorded actions JSON" }, void 0, false, {
+          fileName: "<stdin>",
+          lineNumber: 95,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6 }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
+          fileName: "<stdin>",
+          lineNumber: 96,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "<stdin>",
+        lineNumber: 94,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 25,
-      columnNumber: 5
-    }
-  ) }, void 0, false, {
+      lineNumber: 51,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", height: "100%", maxWidth: 420 }, children: /* @__PURE__ */ jsxDEV(
+      Player,
+      {
+        component: BingoCardClip,
+        durationInFrames: 150,
+        fps: 30,
+        compositionWidth: 1080,
+        compositionHeight: 1920,
+        loop: true,
+        controls: true,
+        inputProps: { match: matchForPlayer },
+        autoplay: true,
+        style: { width: "100%", height: "100%" }
+      },
+      playerKey + (isReplayMode ? "-replay" : ""),
+      false,
+      {
+        fileName: "<stdin>",
+        lineNumber: 104,
+        columnNumber: 11
+      },
+      this
+    ) }, void 0, false, {
+      fileName: "<stdin>",
+      lineNumber: 103,
+      columnNumber: 9
+    }, this) }, void 0, false, {
+      fileName: "<stdin>",
+      lineNumber: 102,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
     fileName: "<stdin>",
-    lineNumber: 24,
-    columnNumber: 3
-  })
-);
+    lineNumber: 50,
+    columnNumber: 5
+  }, this);
+}
+createRoot(document.getElementById("app")).render(/* @__PURE__ */ jsxDEV(InteractiveApp, {}, void 0, false, {
+  fileName: "<stdin>",
+  lineNumber: 123,
+  columnNumber: 51
+}));
