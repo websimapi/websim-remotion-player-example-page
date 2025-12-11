@@ -77,27 +77,30 @@ function InteractiveApp() {
     setPlayerKey((k) => k + 1);
   };
   const matchForPlayer = useMemo(() => {
-    if (!isReplayMode) return { card: exampleCard, highlights: [] };
-    if (actions.length === 0) return { card: exampleCard, highlights: [] };
+    if (!isReplayMode) return { card: exampleCard, highlights: [], durationInFrames: 150 };
+    if (actions.length === 0) return { card: exampleCard, highlights: [], durationInFrames: 150 };
     const sorted = [...actions].sort((a, b) => a.t - b.t);
     const t0 = sorted[0].t;
     const actionsWithFrame = sorted.map((a, idx) => {
       const msOffset = a.t - t0;
-      const frame = Math.round(msOffset / 1e3 * 30) + idx * 6;
+      const frameFromTime = Math.round(msOffset / 1e3 * 30);
+      const frame = Math.max(0, frameFromTime + idx * 6);
       return { r: a.r, c: a.c, frame };
     });
-    return { card: exampleCard, replayActions: actionsWithFrame };
+    const maxFrame = actionsWithFrame.reduce((m, a) => Math.max(m, a.frame), 0);
+    const durationInFrames = Math.max(150, maxFrame + 30);
+    return { card: exampleCard, replayActions: actionsWithFrame, durationInFrames };
   }, [isReplayMode, actions]);
   return /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", height: "100%", gap: 12 }, children: [
     /* @__PURE__ */ jsxDEV("div", { style: { width: 640, padding: 20, boxSizing: "border-box", background: "#fff", borderRadius: 16 }, children: [
       /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 800, marginBottom: 8, fontSize: 18 }, children: "Tap to mark" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 90,
+        lineNumber: 94,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 93,
+        lineNumber: 97,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center" }, children: exampleCard.map(
@@ -136,12 +139,12 @@ function InteractiveApp() {
                   zIndex: 0
                 } }, void 0, false, {
                   fileName: "<stdin>",
-                  lineNumber: 126,
+                  lineNumber: 130,
                   columnNumber: 21
                 }, this),
                 /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1 }, children: isFree ? "FREE" : cell }, void 0, false, {
                   fileName: "<stdin>",
-                  lineNumber: 137,
+                  lineNumber: 141,
                   columnNumber: 19
                 }, this)
               ]
@@ -150,7 +153,7 @@ function InteractiveApp() {
             true,
             {
               fileName: "<stdin>",
-              lineNumber: 103,
+              lineNumber: 107,
               columnNumber: 17
             },
             this
@@ -158,7 +161,7 @@ function InteractiveApp() {
         })
       ) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 96,
+        lineNumber: 100,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, display: "flex", gap: 8 }, children: [
@@ -176,7 +179,7 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 147,
+            lineNumber: 151,
             columnNumber: 11
           },
           this
@@ -192,42 +195,42 @@ function InteractiveApp() {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 153,
+            lineNumber: 157,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 146,
+        lineNumber: 150,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, fontSize: 12 }, children: [
         /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700 }, children: "Recorded actions JSON" }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 162,
+          lineNumber: 166,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6 }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 163,
+          lineNumber: 167,
           columnNumber: 11
         }, this)
       ] }, void 0, true, {
         fileName: "<stdin>",
-        lineNumber: 161,
+        lineNumber: 165,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 89,
+      lineNumber: 93,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ jsxDEV("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", height: "100%", maxWidth: 420 }, children: /* @__PURE__ */ jsxDEV(
       Player,
       {
         component: BingoCardClip,
-        durationInFrames: 150,
+        durationInFrames: matchForPlayer.durationInFrames || 150,
         fps: 30,
         compositionWidth: 1080,
         compositionHeight: 1920,
@@ -241,27 +244,27 @@ function InteractiveApp() {
       false,
       {
         fileName: "<stdin>",
-        lineNumber: 171,
+        lineNumber: 175,
         columnNumber: 11
       },
       this
     ) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 170,
+      lineNumber: 174,
       columnNumber: 9
     }, this) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 169,
+      lineNumber: 173,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
     fileName: "<stdin>",
-    lineNumber: 88,
+    lineNumber: 92,
     columnNumber: 5
   }, this);
 }
 createRoot(document.getElementById("app")).render(/* @__PURE__ */ jsxDEV(InteractiveApp, {}, void 0, false, {
   fileName: "<stdin>",
-  lineNumber: 190,
+  lineNumber: 194,
   columnNumber: 51
 }));
