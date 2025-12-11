@@ -182,8 +182,8 @@ const BingoCardClip = ({ match = {} }) => {
     "div",
     {
       style: {
-        width: 620,
-        padding: 28,
+        width: 720,
+        padding: 32,
         borderRadius: 20,
         background: "#ffffff",
         boxShadow: "0 18px 50px rgba(0,0,0,0.12)",

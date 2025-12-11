@@ -95,16 +95,16 @@ function InteractiveApp() {
       boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
       overflow: "hidden"
     }, children: /* @__PURE__ */ jsxDEV("div", { style: {
-      width: 620,
-      padding: 28,
+      width: 720,
+      padding: 32,
       borderRadius: 20,
       background: "#fff",
       /* scale preview down so it matches composition render size inside the 360px panel */
-      transform: "scale(0.55)",
-      transformOrigin: "top center",
-      /* ensure the scaled content stays centered in its container */
-      marginLeft: "auto",
-      marginRight: "auto",
+      transform: "scale(0.5)",
+      transformOrigin: "center top",
+      /* center the scaled content in its container */
+      display: "flex",
+      justifyContent: "center",
       boxSizing: "content-box"
     }, children: [
       /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
