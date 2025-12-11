@@ -14,12 +14,12 @@ function HeaderSmall() {
   const letters = ["B", "I", "N", "G", "O"];
   return (
     // Render the letters in a matching grid so they align with the 5x5 numbers
-    /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center", marginBottom: 12 }, children: letters.map((L) => /* @__PURE__ */ jsxDEV(
+    /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 108px)", gap: 8, justifyContent: "center", marginBottom: 12 }, children: letters.map((L) => /* @__PURE__ */ jsxDEV(
       "div",
       {
         style: {
-          width: 92,
-          height: 92,
+          width: 108,
+          height: 108,
           borderRadius: 12,
           display: "flex",
           alignItems: "center",
@@ -28,7 +28,7 @@ function HeaderSmall() {
           boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
           border: `4px solid #2b2b2b`,
           // header thicker outline to match composition
-          fontSize: 48,
+          fontSize: 56,
           fontWeight: 900,
           // bolder letters
           color: "#1b1b1b",
@@ -95,14 +95,14 @@ function InteractiveApp() {
       boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
       overflow: "hidden"
     }, children: /* @__PURE__ */ jsxDEV("div", { style: {
-      width: 720,
-      padding: 32,
+      width: 740,
+      padding: 28,
       borderRadius: 20,
       background: "#fff",
       /* scale preview down so it matches composition render size inside the 360px panel */
-      transform: "scale(0.5)",
-      transformOrigin: "center top",
-      /* center the scaled content in its container */
+      transform: "scale(0.46)",
+      transformOrigin: "top center",
+      /* center the scaled content */
       display: "flex",
       justifyContent: "center",
       boxSizing: "content-box"
@@ -112,7 +112,7 @@ function InteractiveApp() {
         lineNumber: 120,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center", marginTop: 6 }, children: exampleCard.map(
+      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 108px)", gap: 8, justifyContent: "center", marginTop: 6 }, children: exampleCard.map(
         (row, rIdx) => row.map((cell, cIdx) => {
           const isFree = typeof cell === "string" && cell.toLowerCase().includes("free");
           const tapped = actions.some((a) => a.r === rIdx && a.c === cIdx);
@@ -121,14 +121,14 @@ function InteractiveApp() {
             {
               onClick: () => handleCellTap(rIdx, cIdx),
               style: {
-                width: 92,
-                height: 92,
+                width: 108,
+                height: 108,
                 borderRadius: 12,
                 border: "3px solid #2b2b2b",
                 // match composition thicker outline for cells
                 background: isFree ? "#efefef" : "#fff",
                 fontWeight: 700,
-                fontSize: 28,
+                fontSize: 32,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -141,8 +141,8 @@ function InteractiveApp() {
               children: [
                 tapped && /* @__PURE__ */ jsxDEV("div", { style: {
                   position: "absolute",
-                  width: 74,
-                  height: 74,
+                  width: Math.max(74, 108 - 34),
+                  height: Math.max(74, 108 - 34),
                   borderRadius: 999,
                   background: "#ff6b6b",
                   opacity: 0.95,
@@ -152,7 +152,7 @@ function InteractiveApp() {
                   lineNumber: 150,
                   columnNumber: 25
                 }, this),
-                /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1, fontSize: 20 }, children: isFree ? "FREE" : cell }, void 0, false, {
+                /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1, fontSize: 22 }, children: isFree ? "FREE" : cell }, void 0, false, {
                   fileName: "<stdin>",
                   lineNumber: 160,
                   columnNumber: 23
