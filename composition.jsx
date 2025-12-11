@@ -14,8 +14,11 @@ const COLORS = {
   highlight: "#ffd54f",
   circleFill: "#ff6b6b"
 };
-const CELL = 108;
+const CELL = 130;
 const GAP = 8;
+const HEADER_BORDER = 4;
+const CELL_BORDER = 3;
+const BORDER_RADIUS = 12;
 const Header = () => {
   const letters = ["B", "I", "N", "G", "O"];
   return /* @__PURE__ */ jsxDEV(
@@ -34,15 +37,15 @@ const Header = () => {
           style: {
             width: CELL,
             height: CELL,
-            borderRadius: 12,
+            borderRadius: BORDER_RADIUS,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             background: "#ffffff",
             boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-            border: `4px solid ${COLORS.gridStroke}`,
-            fontSize: 56,
-            fontWeight: 900,
+            border: `${HEADER_BORDER}px solid ${COLORS.gridStroke}`,
+            fontSize: 72,
+            fontWeight: 800,
             color: COLORS.headerText,
             fontFamily: "Arial, Helvetica, sans-serif"
           },
@@ -52,7 +55,7 @@ const Header = () => {
         false,
         {
           fileName: "<stdin>",
-          lineNumber: 42,
+          lineNumber: 45,
           columnNumber: 9
         }
       ))
@@ -61,17 +64,17 @@ const Header = () => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 32,
+      lineNumber: 35,
       columnNumber: 5
     }
   );
 };
 const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
   const isFree = typeof value === "string" && value.toLowerCase().includes("free");
-  const borderWidth = isHeader ? 4 : 3;
-  const fontSize = isHeader ? 56 : 32;
+  const borderWidth = isHeader ? HEADER_BORDER : CELL_BORDER;
+  const fontSize = isHeader ? 72 : 44;
   const fontWeight = isHeader ? 900 : 700;
-  const borderRadius = 12;
+  const borderRadius = BORDER_RADIUS;
   return /* @__PURE__ */ jsxDEV(
     "div",
     {
@@ -98,8 +101,8 @@ const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
           {
             style: {
               position: "absolute",
-              width: Math.max(74, CELL - 34),
-              height: Math.max(74, CELL - 34),
+              width: Math.round(CELL * 0.7),
+              height: Math.round(CELL * 0.7),
               borderRadius: 999,
               background: COLORS.circleFill,
               opacity: 0.95,
@@ -112,7 +115,7 @@ const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 100,
+            lineNumber: 103,
             columnNumber: 9
           }
         ),
@@ -132,13 +135,13 @@ const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
           false,
           {
             fileName: "<stdin>",
-            lineNumber: 116,
+            lineNumber: 119,
             columnNumber: 9
           }
         ),
         /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1 }, children: isFree ? "FREE" : value }, void 0, false, {
           fileName: "<stdin>",
-          lineNumber: 127,
+          lineNumber: 130,
           columnNumber: 7
         })
       ]
@@ -147,7 +150,7 @@ const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
     true,
     {
       fileName: "<stdin>",
-      lineNumber: 79,
+      lineNumber: 82,
       columnNumber: 5
     }
   );
@@ -180,11 +183,13 @@ const BingoCardClip = ({ match = {} }) => {
   });
   const lettersRow = ["B", "I", "N", "G", "O"];
   const gridRows = card.length === 5 ? [lettersRow, ...card] : card;
+  const boardWidth = CELL * 5 + GAP * 4;
   return /* @__PURE__ */ jsxDEV(AbsoluteFill, { style: { background: COLORS.bg, justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ jsxDEV(
     "div",
     {
       style: {
-        width: 740,
+        width: boardWidth + 56,
+        // add padding comparable to earlier padding
         padding: 28,
         borderRadius: 20,
         background: "#ffffff",
@@ -192,42 +197,35 @@ const BingoCardClip = ({ match = {} }) => {
         transform: `scale(${scale})`,
         opacity
       },
-      children: /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", flexDirection: "column", alignItems: "center" }, children: [
-        /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: `repeat(5, ${CELL}px)`, gap: GAP }, children: gridRows.map(
-          (row, rIdx) => row.map((cell, cIdx) => {
-            const highlighted = Array.isArray(highlights) && highlights[rIdx] && highlights[rIdx][cIdx];
-            const progress = cellProgress[`${rIdx}-${cIdx}`] ?? 0;
-            const isHeader = rIdx === 0 && Array.isArray(gridRows[0]) && String(gridRows[0][0]).length === 1 && gridRows[0].length === 5;
-            return /* @__PURE__ */ jsxDEV(
-              Cell,
-              {
-                value: cell,
-                highlighted,
-                circleProgress: progress,
-                isHeader
-              },
-              `${rIdx}-${cIdx}`,
-              false,
-              {
-                fileName: "<stdin>",
-                lineNumber: 205,
-                columnNumber: 19
-              }
-            );
-          })
-        ) }, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 191,
-          columnNumber: 11
-        }),
-        /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 18, color: "#666", fontSize: 14 }, children: "Bingo card" }, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 218,
-          columnNumber: 11
+      children: /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", flexDirection: "column", alignItems: "center" }, children: /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: `repeat(5, ${CELL}px)`, gap: GAP }, children: gridRows.map(
+        (row, rIdx) => row.map((cell, cIdx) => {
+          const highlighted = Array.isArray(highlights) && highlights[rIdx] && highlights[rIdx][cIdx];
+          const progress = cellProgress[`${rIdx}-${cIdx}`] ?? 0;
+          const isHeader = rIdx === 0 && Array.isArray(gridRows[0]) && String(gridRows[0][0]).length === 1 && gridRows[0].length === 5;
+          return /* @__PURE__ */ jsxDEV(
+            Cell,
+            {
+              value: cell,
+              highlighted,
+              circleProgress: progress,
+              isHeader
+            },
+            `${rIdx}-${cIdx}`,
+            false,
+            {
+              fileName: "<stdin>",
+              lineNumber: 211,
+              columnNumber: 19
+            }
+          );
         })
-      ] }, void 0, true, {
+      ) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 189,
+        lineNumber: 197,
+        columnNumber: 11
+      }) }, void 0, false, {
+        fileName: "<stdin>",
+        lineNumber: 195,
         columnNumber: 9
       })
     },
@@ -235,12 +233,12 @@ const BingoCardClip = ({ match = {} }) => {
     false,
     {
       fileName: "<stdin>",
-      lineNumber: 178,
+      lineNumber: 184,
       columnNumber: 7
     }
   ) }, void 0, false, {
     fileName: "<stdin>",
-    lineNumber: 177,
+    lineNumber: 183,
     columnNumber: 5
   });
 };
