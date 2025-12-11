@@ -14,7 +14,7 @@ const COLORS = {
   highlight: "#ffd54f",
   circleFill: "#ff6b6b"
 };
-const CELL = 130;
+const CELL = 150;
 const GAP = 8;
 const HEADER_BORDER = 4;
 const CELL_BORDER = 3;
@@ -44,7 +44,7 @@ const Header = () => {
             background: "#ffffff",
             boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
             border: `${HEADER_BORDER}px solid ${COLORS.gridStroke}`,
-            fontSize: 72,
+            fontSize: 84,
             fontWeight: 800,
             color: COLORS.headerText,
             fontFamily: "Arial, Helvetica, sans-serif"
@@ -72,7 +72,7 @@ const Header = () => {
 const Cell = ({ value, highlighted, circleProgress, isHeader }) => {
   const isFree = typeof value === "string" && value.toLowerCase().includes("free");
   const borderWidth = isHeader ? HEADER_BORDER : CELL_BORDER;
-  const fontSize = isHeader ? 72 : 44;
+  const fontSize = isHeader ? 84 : 56;
   const fontWeight = isHeader ? 900 : 700;
   const borderRadius = BORDER_RADIUS;
   return /* @__PURE__ */ jsxDEV(
@@ -188,9 +188,9 @@ const BingoCardClip = ({ match = {} }) => {
     "div",
     {
       style: {
-        width: boardWidth + 56,
-        // add padding comparable to earlier padding
-        padding: 28,
+        width: boardWidth + 40,
+        // slightly reduced extra padding so board appears larger
+        padding: 20,
         borderRadius: 20,
         background: "#ffffff",
         boxShadow: "0 18px 50px rgba(0,0,0,0.12)",
