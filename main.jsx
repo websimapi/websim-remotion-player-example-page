@@ -20,15 +20,17 @@ function HeaderSmall() {
         style: {
           width: 56,
           height: 56,
-          borderRadius: 8,
+          borderRadius: 12,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           background: "#ffffff",
           boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-          border: `2px solid #2b2b2b`,
+          border: `3px solid #2b2b2b`,
+          // +1px thicker outline
           fontSize: 18,
-          fontWeight: 800,
+          fontWeight: 900,
+          // bolder letters
           color: "#1b1b1b",
           fontFamily: "Arial, Helvetica, sans-serif"
         },
@@ -110,8 +112,9 @@ function InteractiveApp() {
                 style: {
                   width: 56,
                   height: 56,
-                  borderRadius: 8,
-                  border: "2px solid #2b2b2b",
+                  borderRadius: 12,
+                  border: "3px solid #2b2b2b",
+                  // match composition thicker outline
                   background: isFree ? "#efefef" : "#fff",
                   fontWeight: 700,
                   fontSize: 14,
