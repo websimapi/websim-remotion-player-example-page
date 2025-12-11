@@ -82,166 +82,107 @@ function InteractiveApp() {
     const cardWithHeader = [lettersRow, ...exampleCard];
     return { card: cardWithHeader, replayActions: actionsWithFrame, durationInFrames };
   }, [isReplayMode, actions]);
-  return /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", height: "100%", gap: 12, alignItems: "center", padding: 12, boxSizing: "border-box" }, children: [
-    /* @__PURE__ */ jsxDEV("div", { style: { width: 360, boxSizing: "border-box", background: "#fff", borderRadius: 12, padding: 12 }, children: [
-      /* @__PURE__ */ jsxDEV("div", { style: {
-        width: "100%",
-        height: 640,
-        marginTop: 8,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#fafafa",
-        borderRadius: 12,
-        boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
-        overflow: "hidden"
-      }, children: /* @__PURE__ */ jsxDEV("div", { style: {
-        width: 620,
-        padding: 28,
-        borderRadius: 20,
-        background: "#fff",
-        /* scale preview down so it matches composition render size inside the 360px panel */
-        transform: "scale(0.55)",
-        transformOrigin: "top center",
-        /* ensure the scaled content stays centered in its container */
-        marginLeft: "auto",
-        marginRight: "auto",
-        boxSizing: "content-box"
-      }, children: [
-        /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 122,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center", marginTop: 6 }, children: exampleCard.map(
-          (row, rIdx) => row.map((cell, cIdx) => {
-            const isFree = typeof cell === "string" && cell.toLowerCase().includes("free");
-            const tapped = actions.some((a) => a.r === rIdx && a.c === cIdx);
-            return /* @__PURE__ */ jsxDEV(
-              "button",
-              {
-                onClick: () => handleCellTap(rIdx, cIdx),
-                style: {
-                  width: 92,
-                  height: 92,
-                  borderRadius: 12,
-                  border: "3px solid #2b2b2b",
-                  // match composition thicker outline for cells
-                  background: isFree ? "#efefef" : "#fff",
-                  fontWeight: 700,
-                  fontSize: 28,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                  cursor: "pointer",
-                  color: "#111",
-                  fontFamily: "Arial, Helvetica, sans-serif"
-                },
-                children: [
-                  tapped && /* @__PURE__ */ jsxDEV("div", { style: {
-                    position: "absolute",
-                    width: 74,
-                    height: 74,
-                    borderRadius: 999,
-                    background: "#ff6b6b",
-                    opacity: 0.95,
-                    zIndex: 0
-                  } }, void 0, false, {
-                    fileName: "<stdin>",
-                    lineNumber: 152,
-                    columnNumber: 25
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1, fontSize: 20 }, children: isFree ? "FREE" : cell }, void 0, false, {
-                    fileName: "<stdin>",
-                    lineNumber: 162,
-                    columnNumber: 23
-                  }, this)
-                ]
-              },
-              `${rIdx}-${cIdx}`,
-              true,
-              {
-                fileName: "<stdin>",
-                lineNumber: 130,
-                columnNumber: 21
-              },
-              this
-            );
-          })
-        ) }, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 123,
-          columnNumber: 13
-        }, this)
-      ] }, void 0, true, {
+  return /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", height: "100%", gap: 12, alignItems: "center", padding: 12, boxSizing: "border-box", justifyContent: "center" }, children: [
+    /* @__PURE__ */ jsxDEV("div", { style: { width: 360, boxSizing: "border-box", background: "#fff", borderRadius: 12, padding: 12 }, children: /* @__PURE__ */ jsxDEV("div", { style: {
+      width: "100%",
+      height: 640,
+      marginTop: 8,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#fafafa",
+      borderRadius: 12,
+      boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
+      overflow: "hidden"
+    }, children: /* @__PURE__ */ jsxDEV("div", { style: {
+      width: 620,
+      padding: 28,
+      borderRadius: 20,
+      background: "#fff",
+      /* scale preview down so it matches composition render size inside the 360px panel */
+      transform: "scale(0.55)",
+      transformOrigin: "top center",
+      /* ensure the scaled content stays centered in its container */
+      marginLeft: "auto",
+      marginRight: "auto",
+      boxSizing: "content-box"
+    }, children: [
+      /* @__PURE__ */ jsxDEV(HeaderSmall, {}, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 108,
-        columnNumber: 11
-      }, this) }, void 0, false, {
-        fileName: "<stdin>",
-        lineNumber: 96,
-        columnNumber: 9
+        lineNumber: 120,
+        columnNumber: 13
       }, this),
-      /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, display: "flex", gap: 8 }, children: [
-        /* @__PURE__ */ jsxDEV(
-          "button",
-          {
-            onClick: () => {
-              setIsReplayMode(true);
-              setPlayerKey((k) => k + 1);
+      /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: "repeat(5, 92px)", gap: 8, justifyContent: "center", marginTop: 6 }, children: exampleCard.map(
+        (row, rIdx) => row.map((cell, cIdx) => {
+          const isFree = typeof cell === "string" && cell.toLowerCase().includes("free");
+          const tapped = actions.some((a) => a.r === rIdx && a.c === cIdx);
+          return /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              onClick: () => handleCellTap(rIdx, cIdx),
+              style: {
+                width: 92,
+                height: 92,
+                borderRadius: 12,
+                border: "3px solid #2b2b2b",
+                // match composition thicker outline for cells
+                background: isFree ? "#efefef" : "#fff",
+                fontWeight: 700,
+                fontSize: 28,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                overflow: "hidden",
+                cursor: "pointer",
+                color: "#111",
+                fontFamily: "Arial, Helvetica, sans-serif"
+              },
+              children: [
+                tapped && /* @__PURE__ */ jsxDEV("div", { style: {
+                  position: "absolute",
+                  width: 74,
+                  height: 74,
+                  borderRadius: 999,
+                  background: "#ff6b6b",
+                  opacity: 0.95,
+                  zIndex: 0
+                } }, void 0, false, {
+                  fileName: "<stdin>",
+                  lineNumber: 150,
+                  columnNumber: 25
+                }, this),
+                /* @__PURE__ */ jsxDEV("div", { style: { zIndex: 1, fontSize: 20 }, children: isFree ? "FREE" : cell }, void 0, false, {
+                  fileName: "<stdin>",
+                  lineNumber: 160,
+                  columnNumber: 23
+                }, this)
+              ]
             },
-            style: { padding: "8px 12px", borderRadius: 8, background: "#1b9fff", color: "#fff", border: "none", fontSize: 14 },
-            children: "Render Replay"
-          },
-          void 0,
-          false,
-          {
-            fileName: "<stdin>",
-            lineNumber: 174,
-            columnNumber: 11
-          },
-          this
-        ),
-        /* @__PURE__ */ jsxDEV(
-          "button",
-          {
-            onClick: clearActions,
-            style: { padding: "8px 12px", borderRadius: 8, background: "#eee", border: "none", fontSize: 14 },
-            children: "Clear"
-          },
-          void 0,
-          false,
-          {
-            fileName: "<stdin>",
-            lineNumber: 180,
-            columnNumber: 11
-          },
-          this
-        )
-      ] }, void 0, true, {
+            `${rIdx}-${cIdx}`,
+            true,
+            {
+              fileName: "<stdin>",
+              lineNumber: 128,
+              columnNumber: 21
+            },
+            this
+          );
+        })
+      ) }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 173,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV("div", { style: { marginTop: 12, fontSize: 12 }, children: [
-        /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700 }, children: "Recorded actions JSON" }, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 189,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6, maxHeight: 120, overflow: "auto" }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
-          fileName: "<stdin>",
-          lineNumber: 190,
-          columnNumber: 11
-        }, this)
-      ] }, void 0, true, {
-        fileName: "<stdin>",
-        lineNumber: 188,
-        columnNumber: 9
+        lineNumber: 121,
+        columnNumber: 13
       }, this)
     ] }, void 0, true, {
+      fileName: "<stdin>",
+      lineNumber: 106,
+      columnNumber: 11
+    }, this) }, void 0, false, {
+      fileName: "<stdin>",
+      lineNumber: 94,
+      columnNumber: 9
+    }, this) }, void 0, false, {
       fileName: "<stdin>",
       lineNumber: 92,
       columnNumber: 7
@@ -264,17 +205,80 @@ function InteractiveApp() {
       false,
       {
         fileName: "<stdin>",
-        lineNumber: 199,
+        lineNumber: 175,
         columnNumber: 11
       },
       this
     ) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 198,
+      lineNumber: 174,
       columnNumber: 9
     }, this) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 197,
+      lineNumber: 173,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { style: { width: 360, boxSizing: "border-box", padding: 12, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }, children: [
+      /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", gap: 8 }, children: [
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: () => {
+              setIsReplayMode(true);
+              setPlayerKey((k) => k + 1);
+            },
+            style: { padding: "8px 12px", borderRadius: 8, background: "#1b9fff", color: "#fff", border: "none", fontSize: 14 },
+            children: "Render Replay"
+          },
+          void 0,
+          false,
+          {
+            fileName: "<stdin>",
+            lineNumber: 194,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: clearActions,
+            style: { padding: "8px 12px", borderRadius: 8, background: "#eee", border: "none", fontSize: 14 },
+            children: "Clear"
+          },
+          void 0,
+          false,
+          {
+            fileName: "<stdin>",
+            lineNumber: 200,
+            columnNumber: 11
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "<stdin>",
+        lineNumber: 193,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { width: "100%", fontSize: 12 }, children: [
+        /* @__PURE__ */ jsxDEV("div", { style: { fontWeight: 700, marginBottom: 6 }, children: "Recorded actions JSON" }, void 0, false, {
+          fileName: "<stdin>",
+          lineNumber: 209,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("pre", { style: { whiteSpace: "pre-wrap", wordBreak: "break-word", background: "#f7f7f7", padding: 8, borderRadius: 6, maxHeight: 420, overflow: "auto" }, children: JSON.stringify(actions, null, 2) }, void 0, false, {
+          fileName: "<stdin>",
+          lineNumber: 210,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "<stdin>",
+        lineNumber: 208,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "<stdin>",
+      lineNumber: 192,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
@@ -285,6 +289,6 @@ function InteractiveApp() {
 }
 createRoot(document.getElementById("app")).render(/* @__PURE__ */ jsxDEV(InteractiveApp, {}, void 0, false, {
   fileName: "<stdin>",
-  lineNumber: 218,
+  lineNumber: 219,
   columnNumber: 51
 }));
